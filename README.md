@@ -55,3 +55,5 @@ Run `uninstall.bat` as Administrator. This removes all tasks and deletes `%Progr
 
 - If you reinstall or update NVIDIA drivers, rerun `install.bat` — the GPU device ID can change after a driver reinstall.
 - The script uses `Enable-PnpDevice` / `Disable-PnpDevice` via PowerShell running as SYSTEM.
+- This script is tested on an Asus vivobook pro 15 laptop which has RTX 3050, The battery life extended from ~1hrs to ~8-11 hrs.
+- If you don't want to disable gpu on battery or you don't have an Nvidia GPU but want longer battery life, Search on web for topics like zombie background processes on gpu and resource monitor which prevents mobile GPU from going in a deep sleep state.
