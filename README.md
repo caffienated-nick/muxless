@@ -1,38 +1,51 @@
-# GPU Auto Switch (Windows)
+# muxless
 
-Automatically disables NVIDIA GPU on battery (when idle) and enables it
-on AC power.
+Automatically disables idle NVIDIA GPUs on battery power for muxless gaming laptops, and re-enables them when AC power is connected.
 
 ## Features
 
--   Auto-detects NVIDIA GPU
--   Prevents disabling while GPU is in use
--   Works with charge limiters
--   Uses reliable Windows events + fallback polling
+- Auto-detects NVIDIA GPU via PNP device ID
+- Disables GPU only when on battery **and** utilization is below 5%
+- Re-enables GPU automatically when AC power is detected
+- Uses Windows Task Scheduler — no background service or GUI
+- Lightweight, script-based, GitHub distributable
 
 ## Requirements
 
--   Windows 10/11
--   NVIDIA drivers installed
--   Run as Administrator
+- Windows 10 or 11
+- NVIDIA drivers installed (nvidia-smi must be available)
+- A muxless laptop (integrated + dedicated GPU, no hardware MUX switch)
 
 ## Installation
 
-1.  Download the `.bat` file
-2.  Right-click → Run as Administrator
+1. Download `install.bat`
+2. Right-click → **Run as Administrator**
+3. Done
 
-## Tasks Created
+The installer will:
+- Detect your NVIDIA GPU automatically
+- Write `manage_gpu.ps1` to `%ProgramData%\muxless\`
+- Create two scheduled tasks:
+  - **muxless - Manage GPU (logon)** — runs at every user logon
+  - **muxless - Manage GPU (poll)** — runs every 2 minutes
 
--   GPU AutoSwitch - Disable (Event)
--   GPU AutoSwitch - Enable (Event)
--   GPU AutoSwitch - Disable (Idle Check)
+## How it works
+
+Every 2 minutes (and at logon), the script checks power state:
+
+| State | Action |
+|---|---|
+| On AC power | GPU enabled (if it was disabled) |
+| On battery, GPU idle (<5%) | GPU disabled |
+| On battery, GPU active (≥5%) | No action |
+
+After plugging into AC, the GPU re-enables within ~2 minutes.
+
+## Uninstallation
+
+Run `uninstall.bat` as Administrator. This removes all tasks and deletes `%ProgramData%\muxless`.
 
 ## Notes
 
--   Uses `nvidia-smi` for accurate GPU usage
--   Uses multiple power event IDs for compatibility
--   Safe to run multiple times
-
-## Uninstall
-
-Delete the created tasks in Task Scheduler.
+- If you reinstall or update NVIDIA drivers, rerun `install.bat` — the GPU device ID can change after a driver reinstall.
+- The script uses `Enable-PnpDevice` / `Disable-PnpDevice` via PowerShell running as SYSTEM.
