@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="muxlesss_icon.png" width="500">
+  <img src="muxless_icon.png" width="500">
 </p>
 
 <h1 align="center">muxless</h1>
