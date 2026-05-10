@@ -39,7 +39,7 @@ Every 2 minutes (and at logon), the script checks power state:
 | On battery, GPU idle (<5%) | GPU disabled |
 | On battery, GPU active (≥5%) | No action |
 
-After plugging into AC, the GPU re-enables within ~2 minutes.
+After plugging into AC, the GPU re-enables instantly or within ~2 minutes.
 
 ## Uninstallation
 
