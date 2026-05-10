@@ -1,6 +1,12 @@
-# muxless
+<p align="center">
+  <img src="muxlesss_icon.png" width="180">
+</p>
 
+<h1 align="center">muxless</h1>
+
+<p align="center">
 Automatically disables idle NVIDIA GPUs on battery power for muxless gaming laptops, and re-enables them when AC power is connected.
+</p>
 
 ## Features
 
